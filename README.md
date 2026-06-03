@@ -1,4 +1,4 @@
-# Sensor data processing — deliverables
+# Sensor data processing
 
 ## 1. Data quality audit
 
