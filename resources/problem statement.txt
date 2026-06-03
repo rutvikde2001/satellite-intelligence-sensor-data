@@ -1,0 +1,93 @@
+Data Engineer Assignment – Satellite
+Intelligence
+
+Expected effort: 2–3 hours
+Deadline: 7 days from when you receive this brief
+Deliverable: a GitHub repo + a Loom walkthrough video
+
+Context
+At Carnot, we work with messy field data: sensor readings from parcels, satellite-derived
+vegetation indices, weather feeds, and farm metadata. Production reality is that none of it
+arrives clean — readings are missing, statuses are inconsistent, joins are messy, and you
+have to make sensible calls fast.
+This take-home is a simplified version of an actual data wrangling task we'd ask you to do on
+your first week. The goal is to see how you think, not how perfectly you score on any single
+step.
+
+The data
+You'll find two CSVs in this starter pack:
+parcel_readings.csv — daily readings per farm parcel
+• parcel_id — string identifier
+• date — daily reading date
+• ndvi_value — vegetation index value, valid range is [-1, 1]
+• temperature_c — daily mean temperature in Celsius
+• rainfall_mm — daily rainfall in millimetres
+• sensor_status — sensor health flag
+parcel_metadata.csv — parcel info
+• parcel_id — string identifier
+• mill_id — string identifier for the sugar mill this parcel feeds
+• crop_type — string (e.g., "sugarcane", "wheat", "soybean")
+• sowing_date — date the crop was sown
+• area_hectares — float
+
+Your tasks
+1. Data quality audit (~30 min)
+Read both CSVs and list every data quality issue you find. For each issue:
+• What is it?
+• How prevalent? (rough count or %)
+• Your call: drop / impute / flag / repair — and a 1-sentence justification
+Put this in a clear section of your README.
+
+2. Build a clean pipeline (~60 min)
+Write a Python script (or notebook) that:
+• Ingests both CSVs
+• Cleans both per the decisions you made in step 1
+• Joins them into a single time-series dataset (one row per parcel_id × date)
+• Writes the result to cleaned_parcel_timeseries.csv
+Use any libraries you like — Pandas, NumPy, Polars, whatever you reach for in real work. AI
+coding tools are allowed and expected.
+
+3. Quick analysis (~30 min)
+Using your cleaned dataset, for each crop_type:
+• Compute the mean NDVI in the 30 days before sowing_date
+• Compute the mean NDVI in the 30 days after sowing_date
+• Ignore rows where sensor_status is bad
+• Output a small DataFrame: crop_type | mean_ndvi_before | mean_ndvi_after | n_parcels
+Write 2–3 sentences interpreting what you see. Don't tune anything — just produce
+numbers and explain.
+
+4. Production-readiness reflection (~15 min, in README)
+If this pipeline ran daily and the dataset was 100× larger:
+• What three things would you change?
+• What would you monitor in production?
+• What's the most likely thing to silently break?
+
+What to submit
+1. A public GitHub repo containing:
+o Your code (script or notebook)
+o Your output cleaned_parcel_timeseries.csv
+o A README that includes: your data quality audit, your approach, the analysis
+output, and the production reflection
+
+2. A Loom walkthrough video (5–10 minutes) in which you:
+o Show your code on screen
+o Narrate why you made the three or four most important decisions
+o Verbally answer the production reflection out loud (not just in the README)
+Submit the GitHub link and the Loom link by replying to the email this brief came in.
+
+Allowed
+• Any libraries
+• AI coding tools (Claude, Cursor, Codex, ChatGPT) — we use them daily here. In your
+README, briefly note how you used them.
+• Web search and documentation
+• 7 days of calendar time
+Not allowed
+• Submitting code without the Loom walkthrough — we won't review code without it.
+This is the most important rule.
+
+Evaluation
+We are not evaluating:
+• Whether you got the "right" answer (there isn't one)
+• How fast you finished
+• Whether your code is over-engineered (please don't)
+If this brief was fun to work on, that's a good sign — for you and for us.
